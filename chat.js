@@ -155,7 +155,8 @@ async function submitRequest() {
   const input = document.getElementById('user-input').value;
   const selectedModel = getSelectedModel();
   const context = document.getElementById('chat-history').context;
-  const data = { model: selectedModel, prompt: input, context: context };
+  const systemPrompt = document.getElementById('system-prompt').value;
+  const data = { model: selectedModel, prompt: input, context: context, system: systemPrompt };
 
   // Create user message element and append to chat history
   let chatHistory = document.getElementById('chat-history');
@@ -253,6 +254,7 @@ window.onload = () => {
   document.getElementById("saveName").addEventListener("click", saveChat);
   document.getElementById("chat-select").addEventListener("change", loadSelectedChat);
   document.getElementById("host-address").addEventListener("change", setHostAddress);
+  document.getElementById("system-prompt").addEventListener("change", setSystemPrompt);
 }
 
 function deleteChat() {
@@ -272,8 +274,9 @@ function saveChat() {
   if (chatName === null || chatName.trim() === "") return;
   const history = document.getElementById("chat-history").innerHTML;
   const context = document.getElementById('chat-history').context;
+  const systemPrompt = document.getElementById('system-prompt').value;
   const model = getSelectedModel();
-  localStorage.setItem(chatName, JSON.stringify({"history":history, "context":context, "model": model}));
+  localStorage.setItem(chatName, JSON.stringify({"history":history, "context":context, system: systemPrompt, "model": model}));
   updateChatList();
 }
 
@@ -283,6 +286,7 @@ function loadSelectedChat() {
   const obj = JSON.parse(localStorage.getItem(selectedChat));
   document.getElementById("chat-history").innerHTML = obj.history;
   document.getElementById("chat-history").context = obj.context;
+  document.getElementById("system-prompt").value = obj.system;
   updateModelInQueryString(obj.model)
   document.getElementById('chat-container').style.display = 'block';
 }
@@ -293,7 +297,7 @@ function updateChatList() {
   chatList.innerHTML = '<option value="" disabled selected>Select a chat</option>';
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    if (key === "host-address") continue;
+    if (key === "host-address" || key == "system-prompt") continue;
     const option = document.createElement("option");
     option.value = key;
     option.text = key;
