@@ -32,6 +32,11 @@ if (!ollama_host){
   document.getElementById("host-address").value = ollama_host;
 }
 
+const ollama_system_prompt = localStorage.getItem("system-prompt");
+if (ollama_system_prompt){
+  document.getElementById("system-prompt").value = ollama_system_prompt;
+}
+
 if (rebuildRules){
   rebuildRules(ollama_host);
 }
@@ -43,6 +48,11 @@ function setHostAddress(){
   if (rebuildRules){
     rebuildRules(ollama_host);
   }
+}
+
+function setSystemPrompt(){
+  const systemPrompt = document.getElementById("system-prompt").value;
+  localStorage.setItem("system-prompt", systemPrompt);
 }
 
 
