@@ -77,3 +77,9 @@ body {
   height: 40px;
   max-height: 200px;    /* Set your desired max height here */
 }
+
+@media (max-width: 600px) { /* Adjust 600px to the breakpoint you desire */
+  .d-flex h1 {
+    display: none; /* This will hide the h1 when the window width is 600px or less */
+  }
+}
