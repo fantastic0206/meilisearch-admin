@@ -22,6 +22,7 @@ download_resources:
 		curl -O https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js && \
 		curl -O https://cdn.jsdelivr.net/npm/marked@6.0.0/marked.min.js && \
 		curl -O https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js; \
+		curl -O https://code.jquery.com/jquery-3.7.1.min.js; \
 	fi
 	# Check SHA-256 hash
 	@shasum -a 256 -c resources.hash || exit 1
