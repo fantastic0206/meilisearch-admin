@@ -212,7 +212,7 @@ async function submitRequest() {
           responseDiv.appendChild(copyButton);
         }
         // add word to response
-        if (word != undefined) {
+        if (word != undefined && word != "") {
           if (responseDiv.hidden_text == undefined){
             responseDiv.hidden_text = "";
           }
@@ -324,7 +324,6 @@ function autoGrow(element) {
 
     // Temporarily reset the height to auto to get the actual scrollHeight
     $(element).css("height", "auto");
-    
     let newHeight = element.scrollHeight;
 
     // If content is one line, set the height to baseHeight
